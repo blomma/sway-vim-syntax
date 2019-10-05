@@ -28,9 +28,6 @@ syn match FontNamespace /\w\+:/ contained contains=FontSeparator
 syn match FontContent /-\?\w\+\(-\+\|\s\+\|,\)/ contained contains=FontNamespace,FontSeparator,FontKeyword
 syn match FontSize /\s\=\d\+\(px\)\?\s\?$/ contained
 syn match Font /^\s*font\s\+.*$/ contains=FontContent,FontSeparator,FontSize,FontNamespace
-"syn match Font /^\s*font\s\+.*\(\\\_.*\)\?$/ contains=FontContent,FontSeparator,FontSize,FontNamespace
-"syn match Font /^\s*font\s\+.*\(\\\_.*\)\?[^\\]\+$/ contains=FontContent,FontSeparator,FontSize,FontNamespace
-"syn match Font /^\s*font\s\+\(\(.*\\\_.*\)\|\(.*[^\\]\+$\)\)/ contains=FontContent,FontSeparator,FontSize,FontNamespace
 
 " variables
 syn match String /\(['"]\)\(.\{-}\)\1/ contained
@@ -154,8 +151,12 @@ syn match FocusOnActivation /^\s*focus_on_window_activation\s\+\(smart\|urgent\|
 syn keyword DrawingMarksKeyword show_marks contained
 syn match DrawingMarks /^\s*show_marks\s\+\(yes\|no\)\s\?$/ contains=FocusWrappingType,DrawingMarksKeyword
 
+" Output
+syn keyword OutputKeyword output contained
+syn match Output /^\s*output\?\s\+.*$/ contains=OutputKeyword,String
+
 " Group mode/bar
-syn keyword BlockKeyword mode bar colors i3bar_command status_command position exec mode hidden_state modifier id position output background statusline tray_output tray_padding separator separator_symbol workspace_buttons strip_workspace_numbers binding_mode_indicator focused_workspace active_workspace inactive_workspace urgent_workspace binding_mode contained
+syn keyword BlockKeyword input mode bar colors i3bar_command status_command position exec mode hidden_state modifier id position output background statusline tray_output tray_padding separator separator_symbol workspace_buttons strip_workspace_numbers binding_mode_indicator focused_workspace active_workspace inactive_workspace urgent_workspace binding_mode contained
 syn region Block start=+.*s\?{$+ end=+^}$+ contains=BlockKeyword,String,Bind,Comment,Font,FocusWrappingType,Color,Variable transparent keepend extend
 
 " Line continuation
@@ -278,6 +279,7 @@ hi! def link DelayUrgencyKeyword Identifier
 hi! def link FocusOnActivationKeyword Identifier
 hi! def link DrawingMarksKeyword Identifier
 hi! def link BlockKeyword Identifier
+hi! def link OutputKeyword Identifier
 hi! def link Variable Statement
 hi! def link ArbitraryCommand Type
 
